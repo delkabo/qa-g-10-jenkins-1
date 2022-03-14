@@ -1,37 +1,31 @@
 package tests;
 
-
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 
-public class RegistrationFormTests {
+public class RegistrationTests extends TestBase {
 
     @Test
-    void successFillTest() {
+    void fillFormTest() {
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
 
-        $("#firstName").setValue("Kamil");
-        $("#lastName").setValue("Syapukov");
-        $("#userEmail").setValue("kamil@syapukov.com");
+        $("#firstName").setValue("Alex");
+        $("#lastName").setValue("Egorov");
+        $("#userEmail").setValue("alex@egorov.com");
         $("#genterWrapper").$(byText("Other")).click();
-        $("#userNumber").setValue("89999999999");
+        $("#userNumber").setValue("1231231230");
         $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption("May");
+        $(".react-datepicker__month-select").selectOption("July");
         $(".react-datepicker__year-select").selectOption("2008");
-        $$(".react-datepicker__day").findBy(text("13")).click();
+        $("[aria-label$='July 30th, 2008']").click();
         $("#subjectsInput").setValue("Math").pressEnter();
         $("#hobbiesWrapper").$(byText("Sports")).click();
-        $("#uploadPicture").uploadFromClasspath("cv.jpg");
+//        $("#uploadPicture").uploadFromClasspath("img/1.png");
         $("#currentAddress").setValue("Some address 1");
         $("#state").scrollTo().click();
         $("#stateCity-wrapper").$(byText("NCR")).click();
@@ -41,6 +35,6 @@ public class RegistrationFormTests {
 
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
         $(".table-responsive").$(byText("Student Name"))
-                .parent().shouldHave(text("Kamil Syapukov"));
+                .parent().shouldHave(text("Alex Egorov"));
     }
 }
