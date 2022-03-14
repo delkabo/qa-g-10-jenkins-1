@@ -9,11 +9,16 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class BaseTestLambdaStep {
 
     @BeforeAll
     static void setUp(){
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("enableVNC",true);
+        capabilities.setCapability("enableVideo",true);
+        Configuration.browserCapabilities = capabilities;
         Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
     }
 
