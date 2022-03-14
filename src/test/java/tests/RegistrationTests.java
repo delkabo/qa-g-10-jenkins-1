@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationTests extends TestBase {
 
@@ -14,18 +13,18 @@ public class RegistrationTests extends TestBase {
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
 
-        $("#firstName").setValue("Alex");
-        $("#lastName").setValue("Egorov");
-        $("#userEmail").setValue("alex@egorov.com");
+        $("#firstName").setValue("Kamil");
+        $("#lastName").setValue("Syapukov");
+        $("#userEmail").setValue("kamil@syapukov.com");
         $("#genterWrapper").$(byText("Other")).click();
-        $("#userNumber").setValue("1231231230");
+        $("#userNumber").setValue("89999999999");
         $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption("July");
+        $(".react-datepicker__month-select").selectOption("May");
         $(".react-datepicker__year-select").selectOption("2008");
-        $("[aria-label$='July 30th, 2008']").click();
+        $$(".react-datepicker__day").findBy(text("13")).click();
         $("#subjectsInput").setValue("Math").pressEnter();
         $("#hobbiesWrapper").$(byText("Sports")).click();
-//        $("#uploadPicture").uploadFromClasspath("img/1.png");
+//        $("#uploadPicture").uploadFromClasspath("cv.jpg");
         $("#currentAddress").setValue("Some address 1");
         $("#state").scrollTo().click();
         $("#stateCity-wrapper").$(byText("NCR")).click();
@@ -35,6 +34,6 @@ public class RegistrationTests extends TestBase {
 
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
         $(".table-responsive").$(byText("Student Name"))
-                .parent().shouldHave(text("Alex Egorov"));
+                .parent().shouldHave(text("Kamil Syapukov"));
     }
 }
