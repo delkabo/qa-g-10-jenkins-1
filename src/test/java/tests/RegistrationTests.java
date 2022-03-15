@@ -1,5 +1,6 @@
 package tests;
 
+import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
@@ -29,8 +30,9 @@ public class RegistrationTests extends TestBase {
         $("#state").scrollTo().click();
         $("#stateCity-wrapper").$(byText("NCR")).click();
         $("#city").click();
-        $("#stateCity-wrapper").$(byText("Delhi")).click();
-        $("#submit").click();
+        $("#stateCity-wrapper #city").$(byText("Delhi")).click();
+        Selenide.executeJavaScript("document.body.style.zoom='67%'");
+        Selenide.executeJavaScript("arguments[0].click()", $("#submit"));
 
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
         $(".table-responsive").$(byText("Student Name"))
